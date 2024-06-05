@@ -13,6 +13,9 @@ import { usePathname } from "next/navigation";
   },{
     name:'Support',
     link:'/support'
+  },{
+    name:'contact',
+    link:'/'
   }];
 
   export default function Navbar() {

@@ -37,7 +37,7 @@ export default function HomePage() {
                     >
                         <div className="flex flex-col justify-center items-center">
 
-                            <h1 className="font-extrabold text-7xl">Eat With Us</h1><br />
+                            <h1 className="font-extrabold text-7xl md:text-2xl text-center sm:text-xl">Eat With Us</h1><br />
                             <h1 className="capitalize font-extrabold text-center text-xl">Order your favourte food item from your favourte hotel
                                 <br />and enjoy the spices</h1>
                             <button className="text-2xl mt-5 font-bold  rounded-lg py-3 px-6 border-2 border-green-600 filter drop-shadow-2xl hover:bg-green-600 hover:text-gray-800 ease-in duration-200">Order Food</button>
@@ -55,14 +55,14 @@ export default function HomePage() {
                     transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                 }} className="flex  flex-col justify-center items-center mt-11 font-bold text-5xl capitalize"> Try This Now</h1>
 
-            <div id='container-all' className='capitalize overflow-hidden mt-16 m-5'>
+            <div id='container-all' className='container capitalize overflow-hidden mt-16 m-5'>
                 <div id="row1" ref={ref}
                     style={{
                         transform: isInView ? "none" : "translateX(-200px)",
                         opacity: isInView ? 1 : 0,
                         transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                     }}
-                    className='grid grid-cols-3 gap-4'
+                    className='grid sm:grid-cols-3  gap-4 grid-cols-1 '
                 >
 
                     <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -116,7 +116,7 @@ export default function HomePage() {
                         opacity: isInView2 ? 1 : 0,
                         transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
                     }}
-                    className='grid grid-cols-3 gap-4 mt-4'
+                    className='grid sm:grid-cols-3 grid-cols-1 gap-4 mt-4'
                 >
 
 

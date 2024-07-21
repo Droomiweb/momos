@@ -1,12 +1,18 @@
 'use client'
 import '../globals.css'
 import { motion } from "framer-motion"
+import { useEffect, useState } from 'react';
 import Image from 'next/image'
 import { useInView } from "framer-motion"
 import { useRef } from 'react'
-import { useEffect } from 'react'
+import homeFood1 from '@/_actions/latestHome';
 
 export default function HomePage() {
+
+    const [dataImg, setDataImg] = useState([]);
+
+  const [errMsg2, setErrMsg2] = useState(null);
+
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
 
@@ -19,6 +25,28 @@ export default function HomePage() {
 
     const ref4 = useRef(null);
     const isInView4 = useInView(ref4, { once: true });
+
+
+//calling and retriving the documents and storing them to an array named dataImg
+  useEffect(() => {
+    async function fetchDocuments() {
+        try{
+            console.log("try try try")
+        const imageResponse = await homeFood1();
+        if (imageResponse.errMsg2) {
+          setErrMsg2(imageResponse.errMsg2);
+        } else {
+          setDataImg(imageResponse.dataImg);
+        }
+      } catch (error) {
+        console.error('An error occurred while fetching data:', error);
+      }
+    
+    }
+    fetchDocuments();
+  }, []);
+
+
 
 
     return (
@@ -66,11 +94,14 @@ export default function HomePage() {
                     className='grid md:grid-cols-3  gap-4 grid-cols-1 place-content-center'
                 >
 
-                    <div className="my-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                        <img className="object-cover w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="/images/biriyani.jpeg" alt="" />
+
+                    {
+                    dataImg.map((doc) => (
+                        <div key={doc._id} className="my-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img className="object-cover w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={doc.image} alt={doc.name} />
                         <div className="flex flex-col justify-between p-4 leading-normal">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">try Biriyani</h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">try biriyani and expoerience the wonders of spices</p>
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{doc.name}</h5>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{doc.disc}</p>
                             <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-bold text-center w-max text-white bg-green-600 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-green-400 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-700">
                                 Order Now
                                 <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -79,35 +110,9 @@ export default function HomePage() {
                             </a>
                         </div>
                     </div>
-
-                    <div className="my-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                        <img className="object-cover w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="/images/biriyani.jpeg" alt="" />
-                        <div className="flex flex-col justify-between p-4 leading-normal">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">try Biriyani</h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">try biriyani and expoerience the wonders of spices</p>
-                            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-bold text-center w-max text-white bg-green-600 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-green-400 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-700">
-                                Order Now
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="my-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                        <img className="object-cover w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="/images/biriyani.jpeg" alt="" />
-                        <div className="flex flex-col justify-between p-4 leading-normal">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">try Biriyani</h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">try biriyani and expoerience the wonders of spices</p>
-                            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-bold text-center w-max text-white bg-green-600 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-green-400 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-700">
-                                Order Now
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
+                            ))
+                    }
+                 
                 </div>
 
 
@@ -121,34 +126,6 @@ export default function HomePage() {
                 >
 
 
-
-                    <div className="my-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                        <img className="object-cover w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="/images/biriyani.jpeg" alt="" />
-                        <div className="flex flex-col justify-between p-4 leading-normal">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">try Biriyani</h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">try biriyani and expoerience the wonders of spices</p>
-                            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-bold text-center w-max text-white bg-green-600 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-green-400 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-700">
-                                Order Now
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="my-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                        <img className="object-cover w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="/images/biriyani.jpeg" alt="" />
-                        <div className="flex flex-col justify-between p-4 leading-normal">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">try Biriyani</h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">try biriyani and expoerience the wonders of spices</p>
-                            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-bold text-center w-max text-white bg-green-600 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-green-400 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-700">
-                                Order Now
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
 
                     <div className="my-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:ring-green-600 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <img className="object-cover w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="/images/biriyani.jpeg" alt="" />

@@ -41,7 +41,7 @@ export default function Navbar() {
     <>
       <nav className="fixed w-full p-5 flex justify-between bg-green-600 z-40">
         <logo className="flex items-center">
-          <h1 className="text-2xl font-bold">Momoss</h1>
+          <h1 className="text-2xl font-bold">FoodSpot</h1>
         </logo>
         <div className="block md:hidden translate-x-1 z-50">
             <Image onClick={openClose} id="opCl" src='/icons/ham.svg' alt="" width={60} height={60}></Image>

@@ -13,6 +13,19 @@ export default function Admin() {
   const [price, setPrice] = useState(0);
   const [fileUrl, setFileUrl] = useState(img);
 
+
+    useEffect(() => {
+    // Run only in the client
+    if (typeof window !== 'undefined') {
+      const name = prompt("What is your name?");
+      if (name === "Abin2005") {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    }
+  }, []);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {

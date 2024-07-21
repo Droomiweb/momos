@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image'
 import { useInView } from "framer-motion"
 import { useRef } from 'react'
-import homeFood1 from '@/_actions/latestHome';
-import homeFood2 from '@/_actions/latestHome2';
+import homeRaw from '@/_actions/latestHome';
 
 export default function HomePage() {
 
@@ -33,7 +32,7 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchDocuments() {
         try{
-        const imageResponse = await homeFood1();
+        const imageResponse = await homeRaw("hometry1");
         if (imageResponse.errMsg2) {
             console.log(errMsg2)
         } else {
@@ -50,7 +49,7 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchDocuments2() {
         try{
-        const imageResponse = await homeFood2();
+        const imageResponse = await homeRaw("hometry2");
         if (imageResponse.errMsg2) {
             console.log(errMsg2)
         } else {
